@@ -1,3 +1,3 @@
 export default function ResultItem() {
-  return <div>ResultItem</div>;
+  return <li>Result 1</li>;
 }

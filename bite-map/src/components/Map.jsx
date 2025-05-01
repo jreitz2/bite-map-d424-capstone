@@ -1,3 +1,3 @@
 export default function Map() {
-  return <div>Map</div>;
+  return <div className="map-container">Map</div>;
 }

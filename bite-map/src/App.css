@@ -20,7 +20,7 @@ button {
 main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   height: 100vh;
   font-size: 1.5rem;
@@ -54,4 +54,28 @@ input {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 50%;
+  background-color: #3b3f45;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  list-style-type: none;
 }
