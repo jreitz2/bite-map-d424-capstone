@@ -2,18 +2,13 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import SignInForm from "./components/SignInForm";
 import supabaseClient from "./supabase";
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import Map from "./components/Map";
+import Results from "./components/Results";
 
 function App() {
   const [session, setSession] = useState(null);
-
-  const handleLogout = async () => {
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) {
-      console.error("Error signing out:", error);
-    } else {
-      setSession(null);
-    }
-  };
 
   useEffect(() => {
     supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -30,15 +25,19 @@ function App() {
   }, []);
 
   return (
-    <main>
-      {!session && <SignInForm></SignInForm>}
-      {session && (
-        <div>
-          <p>Welcome, {session.user.email}</p>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      )}
-    </main>
+    <>
+      <Header session={session} setSession={setSession}></Header>
+      <main>
+        {!session && <SignInForm></SignInForm>}
+        {session && (
+          <>
+            <SearchBar />
+            <Map />
+            <Results />
+          </>
+        )}
+      </main>
+    </>
   );
 }
 

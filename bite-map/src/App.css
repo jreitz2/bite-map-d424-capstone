@@ -26,6 +26,18 @@ main {
   font-size: 1.5rem;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2rem;
+  margin: 0.5rem;
+}
+
+input {
+  font-size: 1.5rem;
+}
+
 .sign-in-form {
   display: flex;
   flex-direction: column;
@@ -36,4 +48,10 @@ main {
 
 .error {
   color: red;
+}
+
+.user-info-logout {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
