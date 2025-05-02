@@ -5,6 +5,13 @@ import supabaseClient from "../supabase.js";
 export default function Results({ selectedPlace, setSelectedPlace }) {
   const [reviews, setReviews] = useState([]);
 
+  const averageRating =
+    reviews.length > 0
+      ? (
+          reviews.reduce((sum, r) => sum + Number(r.rating), 0) / reviews.length
+        ).toFixed(1)
+      : null;
+
   useEffect(() => {
     if (selectedPlace) {
       const fetchReviews = async () => {
@@ -28,6 +35,8 @@ export default function Results({ selectedPlace, setSelectedPlace }) {
   return (
     <div className="results-container">
       <p>Reviews for {selectedPlace.displayName.text}:</p>
+      <br />
+      {averageRating && <p>Average Rating: {averageRating} / 5</p>}
       <br />
       <ul>
         {reviews.length > 0 ? (

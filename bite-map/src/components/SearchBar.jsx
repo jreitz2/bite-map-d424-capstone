@@ -1,5 +1,6 @@
 export default function SearchBar({ searchTerm, setSearchTerm, setMapCenter }) {
   const handleSearch = async (e) => {
+    e.preventDefault();
     const apiKey = import.meta.env.VITE_MAPS_KEY;
     const encodedSearchTerm = encodeURIComponent(searchTerm);
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedSearchTerm}&key=${apiKey}`;
