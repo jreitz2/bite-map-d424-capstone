@@ -1,26 +1,27 @@
 import { useState } from "react";
+import supabaseClient from "../supabase";
 
 class Review {
-  constructor(userID, placeID, placeName, rating) {
-    this.userID = userID;
-    this.placeID = placeID;
-    this.placeName = placeName;
+  constructor(user_id, place_id, place_name, rating) {
+    this.user_id = user_id;
+    this.place_id = place_id;
+    this.place_name = place_name;
     this.rating = rating;
   }
 
   toObject() {
     return {
-      userID: this.userID,
-      placeID: this.placeID,
-      placeName: this.placeName,
+      user_id: this.user_id,
+      place_id: this.place_id,
+      place_name: this.place_name,
       rating: this.rating,
     };
   }
 }
 
 class DetailedReview extends Review {
-  constructor(userID, placeID, placeName, rating, description) {
-    super(userID, placeID, placeName, rating);
+  constructor(user_id, place_id, place_name, rating, description) {
+    super(user_id, place_id, place_name, rating);
     this.description = description;
   }
 
@@ -32,12 +33,40 @@ class DetailedReview extends Review {
   }
 }
 
-export default function ReviewForm({ selectedPlace }) {
+export default function ReviewForm({ selectedPlace, setSelectedPlace }) {
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const user = await supabaseClient.auth.getUser();
+    const userID = user.data.user.id;
+
+    const ReviewClass = description.trim() ? DetailedReview : Review;
+
+    const review = new ReviewClass(
+      userID,
+      selectedPlace.id,
+      selectedPlace.displayName.text,
+      parseInt(rating),
+      description.trim()
+    );
+
+    const { data, error } = await supabaseClient
+      .from("reviews")
+      .insert([review.toObject()])
+      .select("*");
+
+    console.log("Inserted review:", data || "Unknown");
+    if (error) {
+      console.error("Error inserting review:", error.message);
+    } else {
+      alert("Review submitted successfully!");
+      setRating(0);
+      setDescription("");
+      setSelectedPlace(null);
+    }
   };
 
   return (

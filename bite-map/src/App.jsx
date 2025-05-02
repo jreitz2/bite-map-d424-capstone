@@ -44,7 +44,12 @@ function App() {
               setMapCenter={setMapCenter}
             />
             <Map mapCenter={mapCenter} setSelectedPlace={setSelectedPlace} />
-            {selectedPlace && <ReviewForm selectedPlace={selectedPlace} />}
+            {selectedPlace && (
+              <ReviewForm
+                selectedPlace={selectedPlace}
+                setSelectedPlace={setSelectedPlace}
+              />
+            )}
             <Results />
           </>
         )}
