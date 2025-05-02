@@ -1,4 +1,4 @@
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { GoogleMap } from "@react-google-maps/api";
 import { useCallback } from "react";
 
 export default function Map({ mapCenter, setSelectedPlace }) {
@@ -46,16 +46,12 @@ export default function Map({ mapCenter, setSelectedPlace }) {
 
   return (
     <div className="map-container">
-      <LoadScript googleMapsApiKey={import.meta.env.VITE_MAPS_KEY}>
-        {
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={mapCenter}
-            zoom={10}
-            onLoad={onLoad}
-          />
-        }
-      </LoadScript>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={mapCenter}
+        zoom={10}
+        onLoad={onLoad}
+      />
     </div>
   );
 }

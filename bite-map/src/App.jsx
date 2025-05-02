@@ -7,6 +7,7 @@ import SearchBar from "./components/SearchBar";
 import Map from "./components/Map";
 import Results from "./components/Results";
 import ReviewForm from "./components/ReviewForm";
+import { LoadScript } from "@react-google-maps/api";
 
 function App() {
   const [session, setSession] = useState(null);
@@ -32,8 +33,14 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Header session={session} setSession={setSession}></Header>
+    <LoadScript googleMapsApiKey={import.meta.env.VITE_MAPS_KEY}>
+      <Header
+        session={session}
+        setSession={setSession}
+        setSelectedPlace={setSelectedPlace}
+        setMapCenter={setMapCenter}
+        setSearchTerm={setSearchTerm}
+      ></Header>
       <main>
         {!session && <SignInForm />}
         {session && (
@@ -59,7 +66,7 @@ function App() {
           </>
         )}
       </main>
-    </>
+    </LoadScript>
   );
 }
 
