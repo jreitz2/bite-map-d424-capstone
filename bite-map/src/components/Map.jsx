@@ -1,26 +1,18 @@
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 
-export default function Map() {
+export default function Map({ mapCenter, setSelectedPlace }) {
   const containerStyle = {
     width: "100%",
     height: "100%",
   };
 
-  const center = {
-    lat: 36.1699,
-    lng: -115.1398,
-  };
-
-  const mapRef = useRef(null);
-
   const onLoad = useCallback((map) => {
-    mapRef.current = map;
-
     map.addListener("click", (e) => {
       if (e.placeId) {
         e.stop();
         fetchPlaceDetails(e.placeId);
+        setSelectedPlace(e.placeId);
       }
     });
   }, []);
@@ -45,7 +37,7 @@ export default function Map() {
       }
 
       const data = await response.json();
-      console.log("Place name:", data.displayName?.text || "Unknown");
+      console.log("Place data: ", data || "Unknown");
     } catch (err) {
       console.error("Network error:", err);
     }
@@ -57,7 +49,7 @@ export default function Map() {
         {
           <GoogleMap
             mapContainerStyle={containerStyle}
-            center={center}
+            center={mapCenter}
             zoom={10}
             onLoad={onLoad}
           />

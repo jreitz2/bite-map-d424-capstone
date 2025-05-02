@@ -9,6 +9,12 @@ import Results from "./components/Results";
 
 function App() {
   const [session, setSession] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [mapCenter, setMapCenter] = useState({
+    lat: 36.1716,
+    lng: -115.1391,
+  });
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   useEffect(() => {
     supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -31,8 +37,12 @@ function App() {
         {!session && <SignInForm></SignInForm>}
         {session && (
           <>
-            <SearchBar />
-            <Map />
+            <SearchBar
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              setMapCenter={setMapCenter}
+            />
+            <Map mapCenter={mapCenter} setSelectedPlace={setSelectedPlace} />
             <Results />
           </>
         )}
