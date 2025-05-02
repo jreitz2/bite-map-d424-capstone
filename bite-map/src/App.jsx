@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import Map from "./components/Map";
 import Results from "./components/Results";
+import ReviewForm from "./components/ReviewForm";
 
 function App() {
   const [session, setSession] = useState(null);
@@ -34,7 +35,7 @@ function App() {
     <>
       <Header session={session} setSession={setSession}></Header>
       <main>
-        {!session && <SignInForm></SignInForm>}
+        {!session && <SignInForm />}
         {session && (
           <>
             <SearchBar
@@ -43,6 +44,7 @@ function App() {
               setMapCenter={setMapCenter}
             />
             <Map mapCenter={mapCenter} setSelectedPlace={setSelectedPlace} />
+            {selectedPlace && <ReviewForm selectedPlace={selectedPlace} />}
             <Results />
           </>
         )}

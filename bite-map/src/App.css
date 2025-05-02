@@ -31,7 +31,8 @@ header {
   justify-content: space-between;
   align-items: center;
   height: 2rem;
-  margin: 0.5rem;
+  margin: 0.8rem;
+  font-size: 1.8rem;
 }
 
 input {
@@ -78,4 +79,17 @@ input {
 
 ul {
   list-style-type: none;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+}
+
+fieldset input {
+  margin: 0.5rem;
 }

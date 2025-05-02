@@ -8,11 +8,11 @@ export default function Map({ mapCenter, setSelectedPlace }) {
   };
 
   const onLoad = useCallback((map) => {
-    map.addListener("click", (e) => {
+    map.addListener("click", async (e) => {
       if (e.placeId) {
         e.stop();
-        fetchPlaceDetails(e.placeId);
-        setSelectedPlace(e.placeId);
+        const placeDetails = await fetchPlaceDetails(e.placeId);
+        setSelectedPlace(placeDetails);
       }
     });
   }, []);
@@ -38,6 +38,7 @@ export default function Map({ mapCenter, setSelectedPlace }) {
 
       const data = await response.json();
       console.log("Place data: ", data || "Unknown");
+      return data;
     } catch (err) {
       console.error("Network error:", err);
     }
