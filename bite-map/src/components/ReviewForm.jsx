@@ -2,8 +2,9 @@ import { useState } from "react";
 import supabaseClient from "../supabase";
 
 class Review {
-  constructor(user_id, place_id, place_name, rating) {
+  constructor(user_id, user_name, place_id, place_name, rating) {
     this.user_id = user_id;
+    this.user_name = user_name;
     this.place_id = place_id;
     this.place_name = place_name;
     this.rating = rating;
@@ -12,6 +13,7 @@ class Review {
   toObject() {
     return {
       user_id: this.user_id,
+      user_name: this.user_name,
       place_id: this.place_id,
       place_name: this.place_name,
       rating: this.rating,
@@ -20,8 +22,8 @@ class Review {
 }
 
 class DetailedReview extends Review {
-  constructor(user_id, place_id, place_name, rating, description) {
-    super(user_id, place_id, place_name, rating);
+  constructor(user_id, user_name, place_id, place_name, rating, description) {
+    super(user_id, user_name, place_id, place_name, rating);
     this.description = description;
   }
 
@@ -42,11 +44,13 @@ export default function ReviewForm({ selectedPlace, setSelectedPlace }) {
 
     const user = await supabaseClient.auth.getUser();
     const userID = user.data.user.id;
+    const userName = user.data.user.user_metadata.email || "Anonymous";
 
     const ReviewClass = description.trim() ? DetailedReview : Review;
 
     const review = new ReviewClass(
       userID,
+      userName,
       selectedPlace.id,
       selectedPlace.displayName.text,
       parseInt(rating),
