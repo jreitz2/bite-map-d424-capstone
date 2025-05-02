@@ -1,5 +1,37 @@
 import { useState } from "react";
 
+class Review {
+  constructor(userID, placeID, placeName, rating) {
+    this.userID = userID;
+    this.placeID = placeID;
+    this.placeName = placeName;
+    this.rating = rating;
+  }
+
+  toObject() {
+    return {
+      userID: this.userID,
+      placeID: this.placeID,
+      placeName: this.placeName,
+      rating: this.rating,
+    };
+  }
+}
+
+class DetailedReview extends Review {
+  constructor(userID, placeID, placeName, rating, description) {
+    super(userID, placeID, placeName, rating);
+    this.description = description;
+  }
+
+  toObject() {
+    return {
+      ...super.toObject(),
+      description: this.description,
+    };
+  }
+}
+
 export default function ReviewForm({ selectedPlace }) {
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
