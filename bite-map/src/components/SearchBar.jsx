@@ -16,7 +16,7 @@ export default function SearchBar({ searchTerm, setSearchTerm, setMapCenter }) {
       setMapCenter(location);
       setSearchTerm("");
     } else {
-      console.log("Location not found.");
+      console.log("Location not found.", data);
       setError("Location not found. Please try again.");
     }
   };
