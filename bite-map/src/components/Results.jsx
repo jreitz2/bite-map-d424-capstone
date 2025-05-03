@@ -5,6 +5,7 @@ import supabaseClient from "../supabase.js";
 export default function Results({ selectedPlace, setSelectedPlace }) {
   const [reviews, setReviews] = useState([]);
   const [filterRating, setFilterRating] = useState(null);
+  const [filterTerm, setFilterTerm] = useState("");
 
   const averageRating =
     reviews.length > 0
@@ -33,15 +34,32 @@ export default function Results({ selectedPlace, setSelectedPlace }) {
     }
   }, [selectedPlace]);
 
-  const filteredReviews = filterRating
-    ? reviews.filter((review) => Number(review.rating) === filterRating)
-    : reviews;
+  const filteredReviews = reviews
+    .filter((review) =>
+      filterRating ? Number(review.rating) === filterRating : true
+    )
+    .filter((review) =>
+      filterTerm
+        ? review.description &&
+          review.description.toLowerCase().includes(filterTerm.toLowerCase())
+        : true
+    );
 
   return (
     <div className="results-container">
       <p>Reviews for {selectedPlace.displayName.text}:</p>
       <br />
       {averageRating && <p>Average Rating: {averageRating} / 5</p>}
+      <br />
+      <div>
+        <p>Search reviews by keyword:</p>
+        <input
+          type="text"
+          placeholder="service"
+          value={filterTerm}
+          onChange={(e) => setFilterTerm(e.target.value)}
+        />
+      </div>
       <br />
       <div>
         <p>Filter by rating:</p>
