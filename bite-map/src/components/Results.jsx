@@ -44,12 +44,15 @@ export default function Results({ selectedPlace, setSelectedPlace }) {
       {averageRating && <p>Average Rating: {averageRating} / 5</p>}
       <br />
       <div>
-        <button onClick={() => setFilterRating(null)}>Show All</button>
-        {[1, 2, 3, 4, 5].map((rating) => (
-          <button key={rating} onClick={() => setFilterRating(rating)}>
-            {rating} Star{rating > 1 && "s"}
-          </button>
-        ))}
+        <p>Filter by rating:</p>
+        <div className="rating-buttons">
+          <button onClick={() => setFilterRating(null)}>Show All</button>
+          {[1, 2, 3, 4, 5].map((rating) => (
+            <button key={rating} onClick={() => setFilterRating(rating)}>
+              {rating}
+            </button>
+          ))}
+        </div>
       </div>
       <br />
       <ul>

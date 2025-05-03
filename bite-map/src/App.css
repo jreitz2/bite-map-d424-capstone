@@ -136,3 +136,8 @@ fieldset input {
 textarea {
   font-size: 1.2rem;
 }
+
+.rating-buttons {
+  display: flex;
+  gap: 1rem;
+}
