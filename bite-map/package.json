@@ -14,10 +14,12 @@
     "@react-google-maps/api": "^2.20.6",
     "@supabase/supabase-js": "^2.49.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "supabase": "^2.22.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@types/node": "^22.15.3",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react-swc": "^3.8.0",
