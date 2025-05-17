@@ -41,16 +41,17 @@ function App() {
         setMapCenter={setMapCenter}
         setSearchTerm={setSearchTerm}
       ></Header>
+      {session && (
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setMapCenter={setMapCenter}
+        />
+      )}
       <main>
         {!session && <SignInForm />}
         {session && (
           <>
-            <SearchBar
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              setMapCenter={setMapCenter}
-            />
-            <Map mapCenter={mapCenter} setSelectedPlace={setSelectedPlace} />
             {selectedPlace && (
               <>
                 <ReviewForm
@@ -63,6 +64,7 @@ function App() {
                 />
               </>
             )}
+            <Map mapCenter={mapCenter} setSelectedPlace={setSelectedPlace} />
           </>
         )}
       </main>

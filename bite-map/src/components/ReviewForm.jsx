@@ -98,7 +98,7 @@ export default function ReviewForm({ selectedPlace, setSelectedPlace }) {
         id="description"
         value={description}
         rows={10}
-        cols={80}
+        cols={16}
         onChange={(e) => setDescription(e.target.value)}
       />
       <button type="submit">Submit</button>

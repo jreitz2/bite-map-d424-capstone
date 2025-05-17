@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import supabaseClient from "../supabase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faRotateLeft,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function ResultItem({ review, setSelectedPlace }) {
   const [userId, setUserId] = useState(null);
@@ -10,7 +16,7 @@ export default function ResultItem({ review, setSelectedPlace }) {
   const date = new Date(review.created_at);
   const formattedDate = date.toLocaleDateString(undefined, {
     year: "numeric",
-    month: "short",
+    month: "numeric",
     day: "numeric",
   });
   const formattedTime = date.toLocaleTimeString(undefined, {
@@ -65,15 +71,29 @@ export default function ResultItem({ review, setSelectedPlace }) {
   return (
     <div className="review-container">
       <div className="review-header">
-        <p>{review.user_name}</p>
+        <p>{review.user_name.split("@")[0]}</p>
         <div className="review-header-right">
-          <p>{`${formattedDate} - ${formattedTime}`}</p>
+          <p>{`${formattedDate} ${formattedTime}`}</p>
           {userId === review.user_id && (
             <>
-              <button onClick={handleDelete}>X</button>
-              <button onClick={() => setIsEditing(!isEditing)}>
-                {isEditing ? "Cancel" : "Edit"}
-              </button>
+              <FontAwesomeIcon
+                className="icon"
+                icon={faTrash}
+                onClick={handleDelete}
+              />
+              {!isEditing ? (
+                <FontAwesomeIcon
+                  className="icon"
+                  icon={faPenToSquare}
+                  onClick={() => setIsEditing(true)}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  className="icon"
+                  icon={faRotateLeft}
+                  onClick={() => setIsEditing(false)}
+                />
+              )}
             </>
           )}
         </div>

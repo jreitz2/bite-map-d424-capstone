@@ -1,7 +1,10 @@
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 export default function SearchBar({ searchTerm, setSearchTerm, setMapCenter }) {
   const [error, setError] = useState(null);
+  const [placeholder, setPlaceholder] = useState("Las Vegas, NV");
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -12,6 +15,8 @@ export default function SearchBar({ searchTerm, setSearchTerm, setMapCenter }) {
     const res = await fetch(url);
     const data = await res.json();
     if (data.results?.[0]) {
+      console.log("Location found:", data.results[0]);
+      setPlaceholder(data.results[0].formatted_address);
       const location = data.results[0].geometry.location;
       setMapCenter(location);
       setSearchTerm("");
@@ -23,14 +28,20 @@ export default function SearchBar({ searchTerm, setSearchTerm, setMapCenter }) {
 
   return (
     <>
-      <form onSubmit={handleSearch} className="search-bar">
+      <form className="search-bar">
         <input
+          className="search-input"
           type="text"
-          placeholder="Las Vegas, NV"
+          placeholder={placeholder}
           onChange={(e) => setSearchTerm(e.target.value)}
           value={searchTerm}
         />
-        <button type="submit">Search</button>
+
+        <FontAwesomeIcon
+          onClick={handleSearch}
+          icon={faMagnifyingGlass}
+          className="icon search-icon"
+        />
       </form>
       {error && <div className="error">{error}</div>}
     </>

@@ -52,7 +52,7 @@ export default function Results({ selectedPlace, setSelectedPlace }) {
       {averageRating && <p>Average Rating: {averageRating} / 5</p>}
       <br />
       <div>
-        <p>Search reviews by keyword:</p>
+        <p>Search reviews:</p>
         <input
           type="text"
           placeholder="service"
@@ -64,7 +64,7 @@ export default function Results({ selectedPlace, setSelectedPlace }) {
       <div>
         <p>Filter by rating:</p>
         <div className="rating-buttons">
-          <button onClick={() => setFilterRating(null)}>Show All</button>
+          <button onClick={() => setFilterRating(null)}>All</button>
           {[1, 2, 3, 4, 5].map((rating) => (
             <button key={rating} onClick={() => setFilterRating(rating)}>
               {rating}
