@@ -28,7 +28,7 @@ export default function SearchBar({ searchTerm, setSearchTerm, setMapCenter }) {
 
   return (
     <>
-      <form className="search-bar">
+      <form onSubmit={handleSearch} className="search-bar">
         <input
           className="search-input"
           type="text"
@@ -37,11 +37,9 @@ export default function SearchBar({ searchTerm, setSearchTerm, setMapCenter }) {
           value={searchTerm}
         />
 
-        <FontAwesomeIcon
-          onClick={handleSearch}
-          icon={faMagnifyingGlass}
-          className="icon search-icon"
-        />
+        <button type="submit" className="icon search-icon">
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </button>
       </form>
       {error && <div className="error">{error}</div>}
     </>

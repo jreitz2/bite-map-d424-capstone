@@ -213,6 +213,11 @@ textarea {
     min-width: 280px;
   }
 
+  .search-icon {
+    background: none;
+    border: none;
+    color: inherit;
+  }
   header {
     font-size: 0.8rem;
   }

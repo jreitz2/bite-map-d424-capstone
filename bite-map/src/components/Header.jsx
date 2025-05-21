@@ -24,7 +24,6 @@ export default function Header({
   return (
     <header>
       <img src={logo2} alt="Logo" className="logo" />
-      {/* <h1>BiteMap</h1> */}
       {session && (
         <div className="user-info-logout">
           <p>{session.user.email.split("@")[0]}</p>
