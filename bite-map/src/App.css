@@ -8,7 +8,7 @@
 html,
 body {
   height: 100%;
-  background-color: #282c34;
+  background-color: rgb(11, 23, 37);
   color: rgb(224, 226, 226);
 }
 
@@ -36,6 +36,12 @@ header {
   font-size: 1.8rem;
 }
 
+.logo {
+  width: 180px;
+  height: 180px;
+  margin-top: 3rem;
+}
+
 input {
   font-size: 1.2rem;
   padding: 0.2rem;
@@ -47,6 +53,10 @@ input {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+}
+
+.sign-in-container {
+  margin: 0 auto;
 }
 
 .error {
@@ -159,4 +169,66 @@ textarea {
 .icon:hover {
   cursor: pointer;
   color: rgb(114, 114, 114);
+}
+
+@media (max-width: 1399px) {
+  /* CSS styles for screens smaller than 1400px */
+  main {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 1.2rem;
+  }
+
+  input {
+    font-size: 1rem;
+    padding: 0.2rem;
+  }
+
+  .sign-in-container {
+    margin: auto;
+  }
+
+  .map-container {
+    width: 100%;
+    min-height: 50vh;
+    max-height: 75vh;
+  }
+
+  .results-container {
+    width: 100%;
+    max-height: 50vh;
+  }
+
+  .review-form {
+    width: 100%;
+  }
+
+  .search-input {
+    min-width: 280px;
+  }
+
+  header {
+    font-size: 0.8rem;
+  }
+
+  .search-icon {
+    font-size: 1.4rem;
+  }
+
+  .logo {
+    width: 120px;
+    height: 120px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  textarea {
+    width: 100%;
+  }
 }

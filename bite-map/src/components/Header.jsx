@@ -1,4 +1,6 @@
 import supabaseClient from "../supabase";
+import logo from "../assets/logo.jpg";
+import logo2 from "../assets/logo2-nobg.png";
 
 export default function Header({
   session,
@@ -21,10 +23,11 @@ export default function Header({
 
   return (
     <header>
-      <h1>BiteMap</h1>
+      <img src={logo2} alt="Logo" className="logo" />
+      {/* <h1>BiteMap</h1> */}
       {session && (
         <div className="user-info-logout">
-          <p>Welcome, {session.user.email}</p>
+          <p>{session.user.email.split("@")[0]}</p>
           <button onClick={handleLogout}>Logout</button>
         </div>
       )}

@@ -75,7 +75,7 @@ export default function SignInForm() {
   };
 
   return (
-    <div>
+    <div className="sign-in-container">
       <form onSubmit={handleSubmit} className="sign-in-form">
         <p>Sign in with your email address and password:</p>
         {error && <p className="error">{error}</p>}
