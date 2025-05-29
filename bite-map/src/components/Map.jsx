@@ -1,7 +1,7 @@
 import { GoogleMap } from "@react-google-maps/api";
 import { useCallback } from "react";
 
-export default function Map({ mapCenter, setSelectedPlace }) {
+export default function Map({ mapCenter, setSelectedPlace, setError }) {
   const containerStyle = {
     width: "100%",
     height: "100%",
@@ -12,14 +12,23 @@ export default function Map({ mapCenter, setSelectedPlace }) {
       if (e.placeId) {
         e.stop();
         const placeDetails = await fetchPlaceDetails(e.placeId);
-        setSelectedPlace(placeDetails);
+        if (
+          placeDetails &&
+          placeDetails.types &&
+          placeDetails.types.includes("restaurant")
+        ) {
+          setError(null);
+          setSelectedPlace(placeDetails);
+        } else {
+          setError("Only restaurants can be selected.");
+        }
       }
     });
   }, []);
 
   async function fetchPlaceDetails(placeId) {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    const fields = "id,displayName";
+    const fields = "id,displayName,types";
 
     const url = `https://places.googleapis.com/v1/places/${placeId}?fields=${fields}&key=${apiKey}`;
 

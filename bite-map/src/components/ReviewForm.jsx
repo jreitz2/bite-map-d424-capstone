@@ -35,7 +35,7 @@ class DetailedReview extends Review {
   }
 }
 
-export default function ReviewForm({ selectedPlace, setSelectedPlace }) {
+export default function ReviewForm({ selectedPlace, fetchReviews }) {
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
 
@@ -69,7 +69,7 @@ export default function ReviewForm({ selectedPlace, setSelectedPlace }) {
       alert("Review submitted successfully!");
       setRating(0);
       setDescription("");
-      setSelectedPlace(null);
+      fetchReviews();
     }
   };
 

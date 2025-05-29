@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import ResultItem from "./ResultItem.jsx";
 import supabaseClient from "../supabase.js";
 
-export default function Results({ selectedPlace, setSelectedPlace }) {
-  const [reviews, setReviews] = useState([]);
+export default function Results({
+  selectedPlace,
+  setSelectedPlace,
+  reviews,
+  fetchReviews,
+}) {
   const [filterRating, setFilterRating] = useState(null);
   const [filterTerm, setFilterTerm] = useState("");
 
@@ -16,20 +20,6 @@ export default function Results({ selectedPlace, setSelectedPlace }) {
 
   useEffect(() => {
     if (selectedPlace) {
-      const fetchReviews = async () => {
-        const { data, error } = await supabaseClient
-          .from("reviews")
-          .select("*")
-          .eq("place_id", selectedPlace.id)
-          .order("created_at", { ascending: false });
-
-        if (error) {
-          console.error("Error fetching reviews:", error);
-        } else {
-          setReviews(data);
-        }
-      };
-
       fetchReviews();
     }
   }, [selectedPlace]);
@@ -77,7 +67,11 @@ export default function Results({ selectedPlace, setSelectedPlace }) {
         {reviews.length > 0 ? (
           filteredReviews.map((review) => (
             <li key={review.id}>
-              <ResultItem review={review} setSelectedPlace={setSelectedPlace} />
+              <ResultItem
+                review={review}
+                setSelectedPlace={setSelectedPlace}
+                fetchReviews={fetchReviews}
+              />
             </li>
           ))
         ) : (

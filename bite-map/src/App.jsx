@@ -16,7 +16,23 @@ function App() {
     lat: 36.1716,
     lng: -115.1391,
   });
+  const [error, setError] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [reviews, setReviews] = useState([]);
+
+  const fetchReviews = async () => {
+    const { data, error } = await supabaseClient
+      .from("reviews")
+      .select("*")
+      .eq("place_id", selectedPlace.id)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching reviews:", error);
+    } else {
+      setReviews(data);
+    }
+  };
 
   useEffect(() => {
     supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -46,6 +62,8 @@ function App() {
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           setMapCenter={setMapCenter}
+          error={error}
+          setError={setError}
         />
       )}
       <main>
@@ -56,15 +74,21 @@ function App() {
               <>
                 <ReviewForm
                   selectedPlace={selectedPlace}
-                  setSelectedPlace={setSelectedPlace}
+                  fetchReviews={fetchReviews}
                 />
                 <Results
                   selectedPlace={selectedPlace}
                   setSelectedPlace={setSelectedPlace}
+                  reviews={reviews}
+                  fetchReviews={fetchReviews}
                 />
               </>
             )}
-            <Map mapCenter={mapCenter} setSelectedPlace={setSelectedPlace} />
+            <Map
+              mapCenter={mapCenter}
+              setSelectedPlace={setSelectedPlace}
+              setError={setError}
+            />
           </>
         )}
       </main>

@@ -61,6 +61,9 @@ input {
 
 .error {
   color: red;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .user-info-logout {
@@ -171,6 +174,12 @@ textarea {
   color: rgb(114, 114, 114);
 }
 
+.search-icon {
+  background: none;
+  border: none;
+  color: inherit;
+}
+
 @media (max-width: 1399px) {
   /* CSS styles for screens smaller than 1400px */
   main {
@@ -213,11 +222,6 @@ textarea {
     min-width: 280px;
   }
 
-  .search-icon {
-    background: none;
-    border: none;
-    color: inherit;
-  }
   header {
     font-size: 0.8rem;
   }

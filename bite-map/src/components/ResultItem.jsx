@@ -7,7 +7,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function ResultItem({ review, setSelectedPlace }) {
+export default function ResultItem({ review, fetchReviews }) {
   const [userId, setUserId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [newDescription, setNewDescription] = useState(review.description);
@@ -34,7 +34,7 @@ export default function ResultItem({ review, setSelectedPlace }) {
       console.error("Error deleting review:", error);
     } else {
       alert("Review deleted successfully");
-      setSelectedPlace(null);
+      fetchReviews();
     }
   };
 
@@ -49,7 +49,7 @@ export default function ResultItem({ review, setSelectedPlace }) {
     } else {
       alert("Review updated successfully");
       setIsEditing(false);
-      setSelectedPlace(null);
+      fetchReviews();
     }
   };
 

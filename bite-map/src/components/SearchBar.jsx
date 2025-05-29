@@ -2,8 +2,13 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
-export default function SearchBar({ searchTerm, setSearchTerm, setMapCenter }) {
-  const [error, setError] = useState(null);
+export default function SearchBar({
+  searchTerm,
+  setSearchTerm,
+  setMapCenter,
+  error,
+  setError,
+}) {
   const [placeholder, setPlaceholder] = useState("Las Vegas, NV");
 
   const handleSearch = async (e) => {
