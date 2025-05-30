@@ -28,7 +28,7 @@ export default function Map({ mapCenter, setSelectedPlace, setError }) {
 
   async function fetchPlaceDetails(placeId) {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    const fields = "id,displayName,types";
+    const fields = "id,displayName,types,formattedAddress,priceLevel";
 
     const url = `https://places.googleapis.com/v1/places/${placeId}?fields=${fields}&key=${apiKey}`;
 

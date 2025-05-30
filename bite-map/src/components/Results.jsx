@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ResultItem from "./ResultItem.jsx";
-import supabaseClient from "../supabase.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export default function Results({
   selectedPlace,
@@ -10,6 +11,14 @@ export default function Results({
 }) {
   const [filterRating, setFilterRating] = useState(null);
   const [filterTerm, setFilterTerm] = useState("");
+
+  const priceIndicators = {
+    PRICE_LEVEL_FREE: "$",
+    PRICE_LEVEL_INEXPENSIVE: "$",
+    PRICE_LEVEL_MODERATE: "$$",
+    PRICE_LEVEL_EXPENSIVE: "$$$",
+    PRICE_LEVEL_VERY_EXPENSIVE: "$$$$",
+  };
 
   const averageRating =
     reviews.length > 0
@@ -37,9 +46,30 @@ export default function Results({
 
   return (
     <div className="results-container">
-      <p>Reviews for {selectedPlace.displayName.text}:</p>
+      <p className="text-large-bold">{selectedPlace.displayName.text}</p>
+      <p>
+        {selectedPlace.formattedAddress &&
+          selectedPlace.formattedAddress.split(",")[0]}
+      </p>
       <br />
-      {averageRating && <p>Average Rating: {averageRating} / 5</p>}
+      {averageRating && (
+        <p>
+          Rating:
+          {[...Array(Math.floor(averageRating))].map((_, i) => (
+            <FontAwesomeIcon icon={faStar} key={i} className="icon-star" />
+          ))}{" "}
+          {averageRating} / 5
+        </p>
+      )}
+      <br />
+      <p>
+        Price:{" "}
+        <span className="text-green">
+          {selectedPlace.priceLevel
+            ? priceIndicators[selectedPlace.priceLevel]
+            : "Unavailable"}
+        </span>
+      </p>
       <br />
       <div>
         <p>Search reviews:</p>

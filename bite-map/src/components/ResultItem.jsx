@@ -71,7 +71,7 @@ export default function ResultItem({ review, fetchReviews }) {
   return (
     <div className="review-container">
       <div className="review-header">
-        <p>{review.user_name.split("@")[0]}</p>
+        <p>{review.user_name && review.user_name.split("@")[0]}</p>
         <div className="review-header-right">
           <p>{`${formattedDate} ${formattedTime}`}</p>
           {userId === review.user_id && (

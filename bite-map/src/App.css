@@ -174,10 +174,23 @@ textarea {
   color: rgb(114, 114, 114);
 }
 
+.icon-star {
+  color: rgb(252, 224, 68);
+}
+
 .search-icon {
   background: none;
   border: none;
   color: inherit;
+}
+
+.text-large-bold {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.text-green {
+  color: rgb(109, 190, 109);
 }
 
 @media (max-width: 1399px) {
