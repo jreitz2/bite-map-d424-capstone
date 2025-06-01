@@ -193,6 +193,11 @@ textarea {
   color: rgb(109, 190, 109);
 }
 
+.map-loading-msg {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 @media (max-width: 1399px) {
   /* CSS styles for screens smaller than 1400px */
   main {

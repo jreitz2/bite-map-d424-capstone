@@ -1,5 +1,4 @@
 import supabaseClient from "../supabase";
-import logo from "../assets/logo.jpg";
 import logo2 from "../assets/logo2-nobg.png";
 
 export default function Header({
@@ -17,7 +16,6 @@ export default function Header({
       setSession(null);
       setSelectedPlace(null);
       setSearchTerm("");
-      setMapCenter({ lat: 36.1716, lng: -115.1391 });
     }
   };
 

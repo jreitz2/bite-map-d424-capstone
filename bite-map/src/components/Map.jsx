@@ -58,7 +58,7 @@ export default function Map({ mapCenter, setSelectedPlace, setError }) {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={mapCenter}
-        zoom={10}
+        zoom={11}
         onLoad={onLoad}
       />
     </div>

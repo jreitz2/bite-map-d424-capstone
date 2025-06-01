@@ -1,6 +1,6 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SearchBar({
   searchTerm,
@@ -8,8 +8,9 @@ export default function SearchBar({
   setMapCenter,
   error,
   setError,
+  mapCenter,
 }) {
-  const [placeholder, setPlaceholder] = useState("Las Vegas, NV");
+  const [placeholder, setPlaceholder] = useState("");
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -30,6 +31,29 @@ export default function SearchBar({
       setError("Location not found. Please try again.");
     }
   };
+
+  useEffect(() => {
+    async function fetchAddress() {
+      if (mapCenter && mapCenter.lat && mapCenter.lng) {
+        const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${mapCenter.lat},${mapCenter.lng}&key=${apiKey}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.results?.[0]) {
+          setPlaceholder(
+            data.results[0].formatted_address
+              .split(",")
+              .slice(1, 4)
+              .join(",")
+              .trim()
+          );
+        } else {
+          setPlaceholder("No address found");
+        }
+      }
+    }
+    fetchAddress();
+  }, [mapCenter]);
 
   return (
     <>

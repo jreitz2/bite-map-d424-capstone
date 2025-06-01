@@ -12,10 +12,8 @@ import { LoadScript } from "@react-google-maps/api";
 function App() {
   const [session, setSession] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [mapCenter, setMapCenter] = useState({
-    lat: 36.1716,
-    lng: -115.1391,
-  });
+  const [mapCenter, setMapCenter] = useState({});
+  const [locationLoaded, setLocationLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -48,6 +46,35 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = Number(position.coords.latitude);
+          const lng = Number(position.coords.longitude);
+          console.log("Geolocation position:", position);
+          if (
+            typeof lat === "number" &&
+            !isNaN(lat) &&
+            typeof lng === "number" &&
+            !isNaN(lng)
+          ) {
+            setMapCenter({ lat, lng });
+          }
+          setLocationLoaded(true);
+        },
+        (error) => {
+          console.warn(
+            "Geolocation not available or denied, using default center."
+          );
+          setLocationLoaded(true);
+        }
+      );
+    } else {
+      setLocationLoaded(true);
+    }
+  }, []);
+
   return (
     <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
       <Header
@@ -64,6 +91,7 @@ function App() {
           setMapCenter={setMapCenter}
           error={error}
           setError={setError}
+          mapCenter={mapCenter}
         />
       )}
       <main>
@@ -84,11 +112,15 @@ function App() {
                 />
               </>
             )}
-            <Map
-              mapCenter={mapCenter}
-              setSelectedPlace={setSelectedPlace}
-              setError={setError}
-            />
+            {locationLoaded ? (
+              <Map
+                mapCenter={mapCenter}
+                setSelectedPlace={setSelectedPlace}
+                setError={setError}
+              />
+            ) : (
+              <div className="map-loading-msg">Loading map...</div>
+            )}
           </>
         )}
       </main>
