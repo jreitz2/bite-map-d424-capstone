@@ -73,7 +73,7 @@ function App() {
     } else {
       setLocationLoaded(true);
     }
-  }, []);
+  }, [session]);
 
   return (
     <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
